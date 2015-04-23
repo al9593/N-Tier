@@ -15,8 +15,9 @@ connect($db_hostname, $db_database, $db_username, $db_password);
 if ( isset($_POST['country']) ) 
 {
 	$where = " AND Country.Name = '" . $_POST['country'] . "'";
-	$languages = select("SELECT CountryLanguage.Language FROM CountryLanguage, Country WHERE CountryLanguage.CountryCode = Country.Code " . $where);	
-	echo json_encode($languages);
+	$languages = select("SELECT CountryLanguage.Language FROM CountryLanguage, Country WHERE CountryLanguage.CountryCode = Country.Code " . $where);
+	$percent = select("SELECT CountryLanguage.Percentage FROM CountryLanguage, Country WHERE CountryLanguage.CountryCode = Country.Code " . $where);	
+	echo json_encode($languages . $percent);
 }
 else
 {
