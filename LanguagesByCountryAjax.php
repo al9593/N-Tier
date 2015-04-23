@@ -14,8 +14,8 @@ header("Content-Type: application/json; charset=UTF-8");
 connect($db_hostname, $db_database, $db_username, $db_password);
 if ( isset($_POST['country']) ) 
 {
-	$where = " AND Country.Name = '" . $_POST['country'] . "'";
-	$languages = select("SELECT CountryLanguage.Language, CountryLanguage.Percentage FROM CountryLanguage, Country WHERE CountryLanguage.CountryCode = Country.Code " . $where . ORDER BY CountryLanguage.Percentage DESC);
+	$where = " AND Country.Name = '" . $_POST['country'] . "'" . "ORDER BY CountryLanguage.Percentage DESC");
+	$languages = select("SELECT CountryLanguage.Language, CountryLanguage.Percentage FROM CountryLanguage, Country WHERE CountryLanguage.CountryCode = Country.Code " . $where);
 	echo json_encode($languages);
 }
 else
