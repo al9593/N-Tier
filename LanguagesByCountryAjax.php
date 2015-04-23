@@ -16,7 +16,7 @@ if ( isset($_POST['country']) )
 {
 	$where = " AND Country.Name = '" . $_POST['country'] . "'";
 	$languages = select("SELECT CountryLanguage.Language FROM CountryLanguage, Country WHERE CountryLanguage.CountryCode = Country.Code " . $where);	
-	echo json_encode($cities);
+	echo json_encode($languages);
 }
 else
 {
