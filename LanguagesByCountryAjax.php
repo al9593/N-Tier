@@ -12,9 +12,9 @@ include 'functions.php';
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 connect($db_hostname, $db_database, $db_username, $db_password);
-if ( isset($_POST['country']) ) 
+if ( isset($_get['country']) ) 
 {
-	$where = " AND Country.Name = '" . $_POST['country'] . "'";
+	$where = " AND Country.Name = '" . $_get['country'] . "'";
 	$languages = select("SELECT CountryLanguage.Language FROM CountryLanguage, Country WHERE CountryLanguage.CountryCode = Country.Code " . $where);	
 	echo json_encode($languages);
 }
