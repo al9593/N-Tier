@@ -14,14 +14,29 @@ header("Content-Type: application/json; charset=UTF-8");
 connect($db_hostname, $db_database, $db_username, $db_password);
 if ( isset($_GET['grade']) ) 
 {
-	$sql = "SELECT STUDENT, AVERAGE FROM GRADES WHERE VNAME = '" . $_GET['grade'] ."'";
+	if($_GET['grade'] == 'A') 
+	{
+	$sql = "SELECT STUDENT, AVERAGE FROM GRADES WHERE AVERAGE > 89 ";
+	}
+	else if ($_GET['grade'] == 'B') {
+		$sql = "SELECT STUDENT, AVERAGE FROM GRADES WHERE AVERAGE > 79 AND AVERAGE < 90";
+	}
+	else if($_GET['grade'] == 'C')	{
+		$sql = "SELECT STUDENT, AVERAGE FROM GRADES WHERE AVERAGE > 69 AND AVERAGE < 80";
+	}
+	else if($_GET['grade'] == 'D') {
+		$sql = "SELECT STUDENT, AVERAGE FROM GRADES WHERE AVERAGE > 59 AND AVERAGE < 70";
+	}
+	else if($_GET['grade'] == 'F') {
+		$sql = "SELECT STUDENT, AVERAGE FROM GRADES WHERE AVERAGE < 60";
+	}
 	# SELECT MPG FROM MPG WHERE VNAME = 'Prius' 	
 	$grades = select($sql);
 	echo json_encode($grades);
 }
 else
 {
-	$names = select("SELECT STUDENT, AVERAGE FROM GRADES WHERE AVERAGE DESC");
+	$names = select("SELECT STUDENT, AVERAGE FROM GRADES ORDER BY AVERAGE DESC");
 	echo json_encode($names);
 }
 disconnect();
