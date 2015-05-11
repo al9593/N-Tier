@@ -30,6 +30,9 @@ if ( isset($_GET['grade']) )
 	else if($_GET['grade'] == 'F') {
 		$sql = "SELECT STUDENT, AVERAGE FROM GRADES WHERE AVERAGE < 60 ORDER BY AVERAGE DESC";
 	}
+	else {
+		$sql = "SELECT STUDENT, AVERAGE FROM GRADES ORDER BY AVERAGE DESC";
+	}
 	# SELECT MPG FROM MPG WHERE VNAME = 'Prius' 	
 	$grades = select($sql);
 	echo json_encode($grades);
