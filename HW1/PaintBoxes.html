@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<title>Paint the Boxes</title>
+	</head>
+
+
+	<style>
+		/* Local Styles Go Here */
+		div {
+			display: inline-block;
+    		width: 300px;
+    		height: 200px;
+    		margin: 10px;
+    		border: 1px solid #000000;
+		}
+		.slider_box{
+			width:500px; 
+			height:200px;
+		}
+		.color_example{
+			width:100px; 
+			height:100px;
+		}
+		.active
+		{
+			width: 125px;
+			height: 125px;
+		}
+		.grouping
+		{
+			height: 100px;
+			width: 200px;
+			border: 0px;
+			
+		}
+	</style>
+
+	<body>
+		<!-- HTML Goes Here... -->
+			<div class = "swatch"></div>
+			<div class = "swatch"></div>
+			<div class = "swatch"></div>
+			<div class = "swatch"></div>
+			<div class = "swatch"></div>
+			<div class = "swatch"></div>
+
+			<div class = "slider_box" id = "Palette1"> 
+				<div class = "color_example"></div>
+					<div class = "grouping">
+						<span>Red - </span><span id = "rvalue_s1"></span>
+						<input type ="range" id = "rRange" name = "Red" min "0" max ="255"><br>
+						<span>Green - </span><span id = "gvalue_s1"></span>
+						<input type ="range" id = "gRange" name = "Green" min "0" max ="255"><br>
+						<span>Blue - </span><span id = "bvalue_s1"></span>
+						<input type ="range" id = "bRange" name = "Blue" min "0" max ="255">
+					</div>
+			</div>
+
+			<div class = "slider_box" id = "Palette2"> 
+				<div class = "color_example"></div>
+					<div class = "grouping">
+						<span>Red - </span><span id = "rvalue_s2"></span>
+						<input type ="range" id = "rRange" name = "Red" min "0" max ="255"><br>
+						<span>Green - </span><span id = "gvalue_s2"></span>
+						<input type ="range" id = "gRange" name = "Green" min "0" max ="255"><br>
+						<span>Blue - </span><span id = "bvalue_s2"></span>
+						<input type ="range" id = "bRange" name = "Blue" min "0" max ="255">
+					</div>
+			</div>
+
+			<br/>
+			<input type = "button" value="Reset Swatches" id = "reset"/>
+
+		<script>
+			// Local JavaScript Goes Here...
+			$(".slider_box").click(
+			function()
+			{
+				$(".color_example").removeClass("active");
+  				$(this).find(".color_example").addClass("active");
+  				var r = $(this).find("#rRange").val();
+  				var g = $(this).find("#gRange").val();
+  				var b = $(this).find("#bRange").val();
+  				var color = "rgb(" + r + "," + g + "," + b + ")";
+  				update(color);
+			});
+
+			$(".swatch").click(
+			function()
+			{
+				var color = $(".active").css("background-color");
+				$(this).css("background-color", color);
+			});
+
+			function update(color)
+			{
+				$(".active").css("background-color", color);
+				updateNum();
+
+			}
+
+			function updateNum()
+			{
+				//Values from first Palette
+				var r1 = $("#Palette1").find("#rRange").val();
+  				var g1 = $("#Palette1").find("#gRange").val();
+  				var b1 = $("#Palette1").find("#bRange").val();
+
+  				//Values from second Palette
+  				var r2 = $("#Palette2").find("#rRange").val();
+  				var g2 = $("#Palette2").find("#gRange").val();
+  				var b2 = $("#Palette2").find("#bRange").val();
+
+  				//Values taken are then set as text for user to see
+  				$("#rvalue_s1").text(r1);
+  				$("#gvalue_s1").text(g1);
+  				$("#bvalue_s1").text(b1);
+  				$("#rvalue_s2").text(r2);
+  				$("#gvalue_s2").text(g2);
+  				$("#bvalue_s2").text(b2);
+			}
+
+			$(document).ready(updateNum);
+			
+			$("#reset").click(
+			function()
+			{
+				$(".swatch").css("background-color", "#FFFFFF");
+			});
+
+		</script>
+
+	</body>
+</html>
